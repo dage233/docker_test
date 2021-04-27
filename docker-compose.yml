@@ -1,0 +1,60 @@
+version: '2'
+services:
+  ubuntu_1:
+    build: ubuntu
+    container_name: ubuntu_1
+    restart: always
+    tty: true
+    volumes:
+      - ./ubuntu/data/ubuntu_1:/root/person
+      - ./ubuntu/data/ubuntu_shared:/root/shared
+    environment:
+      CONTAINER_NAME: UBUNTU_1
+
+  ubuntu_2:
+    build: ubuntu
+    container_name: ubuntu_2
+    restart: always
+    tty: true
+    volumes:
+      - ./ubuntu/data/ubuntu_2:/root/person
+      - ./ubuntu/data/ubuntu_shared:/root/shared
+    environment:
+      CONTAINER_NAME: UBUNTU_2
+
+  centos_1:
+    build: centos
+    container_name: centos_1
+    restart: always
+    tty: true
+    volumes:
+      - ./centos/data/centos_1:/root/person
+      - ./centos/data/centos_shared:/root/shared
+    environment:
+      CONTAINER_NAME: CENTOS_1
+
+  centos_2:
+    build: centos
+    container_name: centos_2
+    restart: always
+    tty: true
+    volumes:
+      - ./centos/data/centos_2:/root/person
+      - ./centos/data/centos_shared:/root/shared
+    environment:
+      CONTAINER_NAME: CENTOS_2
+
+
+  mysql:
+    image: mysql
+    container_name: mysql-db
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci #设置utf8字符集
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root #root管理员用户密码
+      MYSQL_USER: test   #创建test用户
+      MYSQL_PASSWORD: test  #设置test用户的密码
+    ports:
+      - 3306:3306 # 本机 : 容器
+    volumes:
+      - ./mysql/data:/var/lib/mysql
