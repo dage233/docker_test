@@ -44,6 +44,17 @@ services:
     environment:
       CONTAINER_NAME: CENTOS_2
 
+  archlinux:
+    build: archlinux
+    container_name: arch
+    restart: always
+    tty: true
+    volumes:
+      - ./archlinux/data/archlinux_1:/root/person
+      - ./archlinux/data/archlinux_shared:/root/shared
+    environment:
+      CONTAINER_NAME: archlinux
+
 
   mysql:
     image: mysql
